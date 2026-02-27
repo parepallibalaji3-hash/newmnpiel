@@ -1,16 +1,12 @@
 /* ============================================================
    contact.js  —  Logic specific to contact.html
-   Connects to: POST /api/contact  (contact_form.py backend)
-
-   Flow:
-     1. Validate all 5 required fields (name/phone/email/subject/message)
-     2. POST JSON to Flask /api/contact
-     3. Backend saves to Firebase + sends two emails via SMTP
-     4. Show success state
-     5. Fall back to demo-success if backend is unreachable
+   Connects to: Google Apps Script (Email + Firebase)
    ============================================================ */
 
 console.log("contact.js loaded");
+
+// ── Google Apps Script URL ────────────────────────────────────────
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKj_lW4lZYoiLXh_DLdltNYbXeH2ijGmMMKm_yKZ_Vjpvvvj_1hp3zHIIqt2XToiOfig/exec";
 
 // ── Helpers ──────────────────────────────────────────────────────
 function getField(id) {
@@ -34,35 +30,27 @@ function setLoading(loading) {
   const btn  = document.getElementById('submitBtn');
   const txt  = document.getElementById('btnTxt');
   const load = document.getElementById('btnLoad');
-  btn.disabled  = loading;
-  txt.style.display  = loading ? 'none'  : 'inline';
-  load.style.display = loading ? 'inline': 'none';
+  btn.disabled       = loading;
+  txt.style.display  = loading ? 'none'   : 'inline';
+  load.style.display = loading ? 'inline' : 'none';
 }
 
 // ── Validation ───────────────────────────────────────────────────
 function validateForm(data) {
-  if (!data.name)    return 'Full name is required.';
-  
-  // ── Phone validation (exactly 10 digits) ──
-  if (!data.phone)   return 'Phone number is required.';
-  
-  // Remove all non-digit characters (spaces, dashes, parentheses, etc.)
+  if (!data.name) return 'Full name is required.';
+
+  if (!data.phone) return 'Phone number is required.';
   const cleanPhone = data.phone.replace(/\D/g, '');
-  
-  // Check if it has exactly 10 digits
-  if (cleanPhone.length !== 10) {
-    return 'Phone number must be exactly 10 digits.';
-  }
-  
-  // ── Email validation ──
-  if (!data.email)   return 'Email address is required.';
+  if (cleanPhone.length !== 10) return 'Phone number must be exactly 10 digits.';
+
+  if (!data.email) return 'Email address is required.';
   if (!data.email.includes('@') || !data.email.split('@')[1]?.includes('.'))
-                     return 'Please enter a valid email address.';
-  
+    return 'Please enter a valid email address.';
+
   if (!data.subject) return 'Please select a service / subject.';
   if (!data.message) return 'Message cannot be empty.';
-  if (data.message.length < 10)
-                     return 'Please write a more detailed message (at least 10 characters).';
+  if (data.message.length < 10) return 'Please write a more detailed message (at least 10 characters).';
+
   return null; // valid
 }
 
@@ -72,11 +60,12 @@ async function submitContactForm() {
   clearError();
 
   const data = {
-    name:    getField('fn'),
-    phone:   getField('fp'),
-    email:   getField('fe'),
-    subject: document.getElementById('fs').value,
-    message: getField('fm'),
+    name:       getField('fn'),
+    phone:      getField('fp'),
+    email:      getField('fe'),
+    subject:    document.getElementById('fs').value,
+    message:    getField('fm'),
+    ip_address: "unknown"
   };
 
   // Client-side validation
@@ -86,12 +75,9 @@ async function submitContactForm() {
   setLoading(true);
 
   try {
-    // ── POST to Flask backend → Firebase + SMTP ─────────────────
-    const res = await fetch("/api/contact", {
+    // ── POST to Google Apps Script ────────────────────────────
+    const res = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
       body: JSON.stringify(data)
     });
 
@@ -101,7 +87,7 @@ async function submitContactForm() {
     if (result.success) {
       showSuccess();
       if (typeof showToast === 'function') {
-        showToast('Message sent! We\'ll be in touch soon.', 'success');
+        showToast("Message sent! We'll be in touch soon.", 'success');
       } else {
         alert("✅ Message sent successfully");
       }
@@ -110,14 +96,10 @@ async function submitContactForm() {
     }
 
   } catch (networkErr) {
-    // Backend unreachable → demo mode (still show success to user)
-    console.warn('[contact.js] Backend unreachable. Running in demo mode.', networkErr.message);
-    console.error("FETCH ERROR:", networkErr);
-    showSuccess();
+    console.warn('[contact.js] Backend unreachable.', networkErr.message);
+    showError('Cannot reach server. Please try again later.');
     if (typeof showToast === 'function') {
-      showToast('Demo mode — backend not connected.', 'error');
-    } else {
-      alert("❌ Cannot reach backend - running in demo mode");
+      showToast('Server unreachable. Please try again.', 'error');
     }
   }
 
@@ -140,17 +122,6 @@ function resetContactForm() {
   document.getElementById('formArea').style.display = 'block';
   document.getElementById('formOk').classList.remove('show');
 }
-
-// ── Init on mnp:ready (Firebase config fetched from .env via backend) ──
-window.addEventListener('mnp:ready', ({ detail }) => {
-  if (!detail.config) {
-    if (typeof showToast === 'function') {
-      showToast('Backend offline — demo mode active.', 'error');
-    }
-  } else {
-    console.info('[contact.js] Firebase connected · project:', detail.config.projectId);
-  }
-});
 
 // ── Allow Enter key in inputs to submit form ──────────────────────
 document.addEventListener('DOMContentLoaded', () => {
