@@ -1,0 +1,130 @@
+/* ============================================================
+   projects.css  —  Styles specific to projects.html
+   ============================================================ */
+
+.filter-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.filt-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+  padding: 8px 20px;
+  border: 1px solid rgba(240,237,232,0.15);
+  background: transparent; color: var(--grey);
+  cursor: pointer; transition: all 0.2s;
+}
+.filt-btn:hover { border-color: var(--red); color: var(--red2); }
+.filt-btn.active {
+  background: var(--red); color: var(--white);
+  border-color: var(--red);
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+/* Status bar */
+.proj-status {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; background: var(--card);
+  border: 1px solid var(--borderl); border-left: 3px solid var(--red);
+  margin-bottom: 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--grey);
+}
+.proj-count {
+  background: rgba(204,26,26,0.15); color: var(--red2);
+  padding: 3px 12px; border-radius: 2px; font-weight: 700;
+}
+
+/* Project Grid */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2px; background: var(--borderl);
+  border: 1px solid var(--borderl);
+  min-height: 300px;
+}
+
+/* Skeleton Loader */
+.skeleton-card {
+  background: var(--card); height: 380px;
+  position: relative; overflow: hidden;
+}
+.skeleton-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* Project Card */
+.proj-card {
+  background: var(--card); overflow: hidden;
+  position: relative; transition: background 0.3s;
+  opacity: 0; animation: fadeUp 0.5s ease forwards;
+}
+.proj-card:hover { background: #1a0d0d; }
+.proj-img {
+  height: 190px; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 4rem; position: relative; overflow: hidden;
+}
+.c1 { background: linear-gradient(140deg,#1a0505,#3a1010); }
+.c2 { background: linear-gradient(140deg,#0a1020,#1a2a40); }
+.c3 { background: linear-gradient(140deg,#0a2010,#1a3a20); }
+.c4 { background: linear-gradient(140deg,#201010,#3a0505); }
+.c5 { background: linear-gradient(140deg,#100a20,#201030); }
+.c6 { background: linear-gradient(140deg,#1a1505,#352a10); }
+.proj-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--card) 0%, transparent 60%);
+}
+.proj-img::before {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 0; height: 0; border-style: solid;
+  border-width: 0 60px 60px 0;
+  border-color: transparent rgba(204,26,26,0.45) transparent transparent;
+  z-index: 1;
+}
+/* Firebase image inside .proj-img */
+.proj-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0;
+}
+.proj-body { padding: 22px 24px 26px; }
+.proj-cat {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red2); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.proj-cat::before { content: ''; width: 16px; height: 1px; background: var(--red); }
+.proj-body h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem; letter-spacing: 2px; margin-bottom: 10px; color: var(--white);
+}
+.proj-body p { font-size: 0.86rem; color: var(--grey); line-height: 1.65; margin-bottom: 16px; }
+.proj-meta {
+  display: flex; gap: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--grey);
+}
+.proj-card.hidden { display: none; }
+
+/* Upload CTA */
+.upload-cta {
+  margin-top: 40px;
+  background: var(--card);
+  border: 1px dashed var(--border);
+  padding: 30px;
+  text-align: center;
+}
+.upload-cta p { font-size: 0.9rem; color: var(--grey); line-height: 1.7; }
+.upload-cta code {
+  font-family: monospace; background: rgba(204,26,26,0.12);
+  color: var(--red2); padding: 2px 8px; border-radius: 2px;
+}

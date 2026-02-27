@@ -1,0 +1,21 @@
+# Firebase Secret Key - NEVER commit this
+serviceAccountKey.json
+
+# Environment Variables
+.env
+.env.local
+.env.production
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+oracleJdk-25/

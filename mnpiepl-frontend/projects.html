@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Projects — MNPIEPL</title>
+  <meta name="description" content="Explore MNPIEPL project portfolio — construction, land surveying, core drilling, drone mapping, and design projects across Telangana."/>
+  <link rel="icon" href="assets/logo.jpg" type="image/jpeg"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/projects.css"/>
+  <!-- Firebase JS SDK (compat) — config fetched dynamically from backend -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+
+  <!-- Navbar & Footer injected by main.js -->
+
+  <!-- ═══ PAGE HERO ══════════════════════════════════════════ -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-eyebrow">Portfolio</div>
+      <h1 class="page-h1">Our <span>Projects</span></h1>
+    </div>
+  </div>
+
+  <!-- ═══ PROJECTS ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-tag">Case Studies</div>
+    <h2 class="sec-title">Work that <span>Speaks</span></h2>
+    <div class="sec-rule"></div>
+
+    <!-- Filter -->
+    <div class="filter-row" id="filterRow">
+      <button class="filt-btn active" data-f="all">All</button>
+      <button class="filt-btn" data-f="construction">Construction</button>
+      <button class="filt-btn" data-f="survey">Land Survey</button>
+      <button class="filt-btn" data-f="drilling">Core Drilling</button>
+      <button class="filt-btn" data-f="drone">Drone Mapping</button>
+      <button class="filt-btn" data-f="design">Design &amp; Estimation</button>
+    </div>
+
+    <!-- Status bar -->
+    <div class="proj-status" id="projStatus">
+      <span id="statusText">Loading projects from database…</span>
+      <span id="projCount" class="proj-count"></span>
+    </div>
+
+    <!-- Dynamic grid (Firebase) -->
+    <div class="proj-grid" id="projGrid">
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+
+    <!-- Static fallback grid (hidden by default) -->
+    <div class="proj-grid" id="staticGrid" style="display:none;">
+      <div class="proj-card" data-cat="construction">
+        <div class="proj-img c1">🏗️</div>
+        <div class="proj-body">
+          <div class="proj-cat">Construction</div>
+          <h3>Commercial Complex — Secunderabad</h3>
+          <p>G+4 commercial building, complete construction from pile foundation to finishing, 18-month delivery.</p>
+          <div class="proj-meta"><span>📅 2024</span><span>📍 Secunderabad</span></div>
+        </div>
+      </div>
+      <div class="proj-card" data-cat="survey">
+        <div class="proj-img c2">📐</div>
+        <div class="proj-body">
+          <div class="proj-cat">Land Survey</div>
+          <h3>100-Acre Layout Survey — Rangareddy</h3>
+          <p>Boundary demarcation, topographic survey, and subdivision plat for a 100-acre residential layout.</p>
+          <div class="proj-meta"><span>📅 2024</span><span>📍 Rangareddy</span></div>
+        </div>
+      </div>
+      <div class="proj-card" data-cat="drone">
+        <div class="proj-img c3">🚁</div>
+        <div class="proj-body">
+          <div class="proj-cat">Drone Mapping</div>
+          <h3>Quarry Volume Survey — Nalgonda</h3>
+          <p>UAV photogrammetric stockpile volume calculation for a granite quarry; 95-hectare coverage in one day.</p>
+          <div class="proj-meta"><span>📅 2024</span><span>📍 Nalgonda</span></div>
+        </div>
+      </div>
+      <div class="proj-card" data-cat="drilling">
+        <div class="proj-img c4">⛏️</div>
+        <div class="proj-body">
+          <div class="proj-cat">Core Drilling</div>
+          <h3>Soil Investigation — Industrial Park</h3>
+          <p>Geotechnical investigation with 12 bore holes to 15m depth for a proposed industrial park.</p>
+          <div class="proj-meta"><span>📅 2023</span><span>📍 Patancheru</span></div>
+        </div>
+      </div>
+      <div class="proj-card" data-cat="design">
+        <div class="proj-img c5">📋</div>
+        <div class="proj-body">
+          <div class="proj-cat">Design &amp; Estimation</div>
+          <h3>Hospital Building Design — Warangal</h3>
+          <p>Architectural and structural design for a 120-bed multi-specialty hospital including full BOQ.</p>
+          <div class="proj-meta"><span>📅 2023</span><span>📍 Warangal</span></div>
+        </div>
+      </div>
+      <div class="proj-card" data-cat="survey">
+        <div class="proj-img c6">🛰️</div>
+        <div class="proj-body">
+          <div class="proj-cat">Land Survey</div>
+          <h3>Road Alignment Survey — State Highway</h3>
+          <p>Longitudinal and cross-section survey for 35km state highway realignment with digital terrain modelling.</p>
+          <div class="proj-meta"><span>📅 2023</span><span>📍 Nalgonda Dist.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload prompt (visible only when API is reachable) -->
+    <div class="upload-cta" id="uploadCta" style="display:none;">
+      <p>Want to add a project to this page? Upload it via the admin backend at <code>/api/projects</code>. New projects will appear here automatically.</p>
+      <a href="contact.html" class="btn-outline" style="margin-top:16px;display:inline-flex;">Contact Us to Upload a Project</a>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-band">
+    <h2>Want to See More?</h2>
+    <p>Contact us for a detailed portfolio specific to your industry and project type.</p>
+    <a class="btn-white" href="contact.html">✉ Request Full Portfolio</a>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/projects.js"></script>
+</body>
+</html>
