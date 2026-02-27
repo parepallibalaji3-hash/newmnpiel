@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MNPIEPL — Construction · Survey · Mapping · Drilling</title>
+  <meta name="description" content="Mulleti's and Pusuluri's Infracon and Engineers — end-to-end construction, land surveying, core drilling, drone mapping, and design services."/>
+  <link rel="icon" href="assets/logo.jpg" type="image/jpeg"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+  <!-- Firebase JS SDK (compat) — config fetched dynamically from backend -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+
+  <!-- Navbar & Footer injected by main.js -->
+
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-shape"></div>
+    <div class="hero-shape2"></div>
+
+    <div class="hero-content">
+      <!-- Left -->
+      <div class="hero-left">
+        <div class="hero-eyebrow anim-1">Est. 2017 · Andhra Pradesh, Telangana</div>
+
+        <h1 class="hero-title anim-2">
+          <span class="outline">BUILD.</span><br/>
+          <span class="red">SURVEY.</span><br/>
+          ENGINEER.
+        </h1>
+
+        <div class="hero-tagline anim-3">
+          Construction · Survey · Mapping · Drilling
+        </div>
+
+        <p class="hero-desc anim-3">
+          MNPIEPL delivers end-to-end infrastructure and survey services — from land boundary
+          surveys and drone mapping to core drilling and building construction.
+          Precision-driven. Results-focused.
+        </p>
+
+        <div class="hero-btns anim-4">
+          <a class="btn-red" href="contact.html">✉ Get in Touch</a>
+          <a class="btn-outline" href="projects.html">◈ Our Projects</a>
+        </div>
+
+        <div class="hero-stats anim-5">
+          <div class="stat">
+            <div class="stat-n" data-target="350">0</div>
+            <div class="stat-l">Projects Done</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n" data-target="8">0</div>
+            <div class="stat-l">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n" data-target="5">0</div>
+            <div class="stat-l">Core Disciplines</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n" data-target="98">0</div>
+            <div class="stat-l">% Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — Logo -->
+      <div class="hero-right anim-3">
+        <div class="logo-block">
+          <div class="logo-corner tl"></div>
+          <div class="logo-corner tr"></div>
+          <div class="logo-corner bl"></div>
+          <div class="logo-corner br"></div>
+          <img src="assets/logo.jpg" alt="MNPIEPL" class="logo-main-img"/>
+          <div class="logo-badge">Since 2017</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TICKER ═════════════════════════════════════════════ -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-item">Construction</span>
+      <span class="ticker-item">Land Surveying</span>
+      <span class="ticker-item">Core Drilling</span>
+      <span class="ticker-item">Drone Mapping</span>
+      <span class="ticker-item">Design &amp; Estimation</span>
+      <span class="ticker-item">Construction</span>
+      <span class="ticker-item">Land Surveying</span>
+      <span class="ticker-item">Core Drilling</span>
+      <span class="ticker-item">Drone Mapping</span>
+      <span class="ticker-item">Design &amp; Estimation</span>
+    </div>
+  </div>
+
+  <!-- ═══ SERVICES ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-tag">What We Do</div>
+    <h2 class="sec-title">Our Core <span>Services</span></h2>
+    <div class="sec-rule"></div>
+
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-num">01</div>
+        <span class="svc-icon">🏗️</span>
+        <h3>Construction</h3>
+        <p>Residential, commercial, and industrial construction from foundation to finish. We manage the entire build with quality and on-time delivery.</p>
+        <a href="about.html#construction" class="svc-link">Learn more →</a>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">02</div>
+        <span class="svc-icon">📐</span>
+        <h3>Land Surveying</h3>
+        <p>Precision boundary surveys, topographic surveys, and cadastral mapping using state-of-the-art total stations and GPS equipment.</p>
+        <a href="about.html#survey" class="svc-link">Learn more →</a>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">03</div>
+        <span class="svc-icon">⛏️</span>
+        <h3>Core Drilling</h3>
+        <p>Geotechnical core drilling for soil investigation, rock sampling, and site feasibility assessments to support safe engineering decisions.</p>
+        <a href="about.html#drilling" class="svc-link">Learn more →</a>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">04</div>
+        <span class="svc-icon">🚁</span>
+        <h3>Drone Mapping</h3>
+        <p>UAV-based aerial photography, photogrammetric surveys, volumetric analysis, and high-resolution orthoimagery for any terrain.</p>
+        <a href="about.html#drone" class="svc-link">Learn more →</a>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">05</div>
+        <span class="svc-icon">📋</span>
+        <h3>Design &amp; Estimation</h3>
+        <p>Architectural &amp; structural design, AutoCAD drafting, detailed BOQ preparation, and accurate project cost estimation services.</p>
+        <a href="about.html#design" class="svc-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CTA BAND ════════════════════════════════════════════ -->
+  <div class="cta-band">
+    <h2>Ready to Start Your Next Project?</h2>
+    <p>Talk to our team for a free consultation. We'll scope your project and deliver a precise, competitive quote within 48 hours.</p>
+    <a class="btn-white" href="contact.html">✉ Contact Us Today</a>
+  </div>
+
+  <!-- ═══ WHY US ══════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-tag">Why Choose Us</div>
+    <h2 class="sec-title">Built on <span>Precision</span></h2>
+    <div class="sec-rule"></div>
+    <div class="why-grid">
+      <div class="value-card">
+        <span class="vi">🎯</span>
+        <div><h4>Sub-Millimetre Accuracy</h4>
+        <p>Every measurement is verified before delivery. We never compromise on precision.</p></div>
+      </div>
+      <div class="value-card">
+        <span class="vi">⚡</span>
+        <div><h4>Fast Turnaround</h4>
+        <p>Modern equipment and lean workflows mean deliverables arrive on schedule — always.</p></div>
+      </div>
+      <div class="value-card">
+        <span class="vi">🛡️</span>
+        <div><h4>Fully Compliant</h4>
+        <p>All work follows national standards and local regulations, giving you legally sound deliverables.</p></div>
+      </div>
+      <div class="value-card">
+        <span class="vi">🤝</span>
+        <div><h4>Client Partnership</h4>
+        <p>We work closely with you from first brief to handover — complete transparency at every stage.</p></div>
+      </div>
+      <div class="value-card">
+        <span class="vi">🚁</span>
+        <div><h4>Latest Technology</h4>
+        <p>DGPS, drone LiDAR, motorised total stations, and BIM-ready outputs keep us ahead.</p></div>
+      </div>
+      <div class="value-card">
+        <span class="vi">📞</span>
+        <div><h4>Dedicated Support</h4>
+        <p>Our experts are reachable throughout your project — no unanswered calls, no delays.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

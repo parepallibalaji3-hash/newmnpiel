@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — MNPIEPL</title>
+  <meta name="description" content="Learn about Mulleti's and Pusuluri's Infracon and Engineers — our story, services, values, and team."/>
+  <link rel="icon" href="assets/logo.jpg" type="image/jpeg"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/about.css"/>
+  <!-- Firebase JS SDK (compat) — config fetched dynamically from backend -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+
+  <!-- Navbar & Footer injected by main.js -->
+
+  <!-- ═══ PAGE HERO ══════════════════════════════════════════ -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-eyebrow">Who We Are</div>
+      <h1 class="page-h1">About <span>MNPIEPL</span></h1>
+    </div>
+  </div>
+
+  <!-- ═══ STORY + VALUES ═════════════════════════════════════ -->
+  <div class="section">
+    <div class="about-grid">
+
+      <!-- Story -->
+      <div class="about-txt">
+        <div class="sec-tag">Our Story</div>
+        <h2 class="sec-title">Built from <span>the Ground Up</span></h2>
+        <div class="sec-rule"></div>
+
+        <p>Mulleti's and Pusuluri's Infracon and Engineers (P) Ltd — <strong>MNPIEPL</strong> — was founded with a
+           single mission: to deliver infrastructure and survey services with uncompromising accuracy and integrity.</p>
+
+        <p>Operating from Andhra Pradesh, Telangana, we have grown from a two-person survey team into a multi-disciplinary
+           firm handling construction projects, geotechnical investigations, UAV mapping, and design services
+           across the state and beyond.</p>
+
+        <p>Our integrated approach means clients get consistent quality from a single trusted partner — whether
+           they need a plot boundary survey before purchase or full end-to-end construction management.</p>
+
+        <div class="pill-row">
+          <span class="pill">Construction</span>
+          <span class="pill">Land Surveying</span>
+          <span class="pill">Core Drilling</span>
+          <span class="pill">Drone Mapping</span>
+          <span class="pill">Design &amp; Estimation</span>
+        </div>
+
+        <div class="stat-row">
+          <div class="mini-stat"><span>350+</span>Projects</div>
+          <div class="mini-stat"><span>8+</span>Years</div>
+          <div class="mini-stat"><span>98%</span>Satisfaction</div>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div>
+        <div class="sec-tag">Our Values</div>
+        <h2 class="sec-title">What We <span>Stand For</span></h2>
+        <div class="sec-rule"></div>
+        <div class="value-stack">
+          <div class="value-card">
+            <span class="vi">🎯</span>
+            <div><h4>Precision First</h4>
+            <p>Every measurement is verified before delivery. We never compromise on accuracy.</p></div>
+          </div>
+          <div class="value-card">
+            <span class="vi">⚡</span>
+            <div><h4>Fast Turnaround</h4>
+            <p>Modern equipment and lean workflows mean deliverables arrive on schedule — always.</p></div>
+          </div>
+          <div class="value-card">
+            <span class="vi">🛡️</span>
+            <div><h4>Fully Compliant</h4>
+            <p>All work is carried out to national standards and local regulations.</p></div>
+          </div>
+          <div class="value-card">
+            <span class="vi">🤝</span>
+            <div><h4>Client Partnership</h4>
+            <p>Transparent communication from first brief to final handover.</p></div>
+          </div>
+          <div class="value-card">
+            <span class="vi">🚁</span>
+            <div><h4>Latest Technology</h4>
+            <p>DGPS, drone LiDAR, motorised total stations, and BIM-ready outputs.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SERVICES DETAIL ════════════════════════════════════ -->
+  <div style="background: var(--black2); border-top: 1px solid var(--borderl); border-bottom: 1px solid var(--borderl);">
+    <div class="section">
+      <div class="sec-tag">What We Offer</div>
+      <h2 class="sec-title">Our <span>Services</span></h2>
+      <div class="sec-rule"></div>
+
+      <div class="services-detail-grid">
+        <div class="svc-detail-card" id="construction">
+          <div class="sdc-icon">🏗️</div>
+          <h3>Construction</h3>
+          <p>Residential, commercial, and industrial construction from foundation to finish. We manage the entire build process — procurement, labour, quality control, and handover.</p>
+          <ul>
+            <li>Residential buildings (G+1 to G+10)</li>
+            <li>Commercial complexes</li>
+            <li>Industrial structures</li>
+            <li>Infrastructure works</li>
+          </ul>
+        </div>
+        <div class="svc-detail-card" id="survey">
+          <div class="sdc-icon">📐</div>
+          <h3>Land Surveying</h3>
+          <p>Precision boundary surveys, topographic surveys, and cadastral mapping using state-of-the-art total stations and GPS equipment, delivering legally compliant reports.</p>
+          <ul>
+            <li>Boundary demarcation</li>
+            <li>Topographic surveys</li>
+            <li>Subdivision &amp; layout surveys</li>
+            <li>Setting out / as-built surveys</li>
+          </ul>
+        </div>
+        <div class="svc-detail-card" id="drilling">
+          <div class="sdc-icon">⛏️</div>
+          <h3>Core Drilling</h3>
+          <p>Geotechnical core drilling and soil investigation for any project requiring subsurface knowledge before construction or heavy civil works begin.</p>
+          <ul>
+            <li>Bore hole drilling to 30m+</li>
+            <li>Rock core sampling</li>
+            <li>SPT &amp; laboratory testing</li>
+            <li>Geotechnical reports</li>
+          </ul>
+        </div>
+        <div class="svc-detail-card" id="drone">
+          <div class="sdc-icon">🚁</div>
+          <h3>Drone Mapping</h3>
+          <p>UAV-based aerial photography and photogrammetric surveys, delivering high-resolution orthoimagery, 3D point clouds, and volumetric analysis.</p>
+          <ul>
+            <li>Aerial orthoimagery</li>
+            <li>Photogrammetric point clouds</li>
+            <li>Stockpile volume calculation</li>
+            <li>Progress monitoring</li>
+          </ul>
+        </div>
+        <div class="svc-detail-card" id="design">
+          <div class="sdc-icon">📋</div>
+          <h3>Design &amp; Estimation</h3>
+          <p>End-to-end architectural and structural design services, from concept sketches to construction drawings and detailed cost estimates.</p>
+          <ul>
+            <li>Architectural drawings (AutoCAD/Revit)</li>
+            <li>Structural design</li>
+            <li>BOQ preparation</li>
+            <li>Project cost estimation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TEAM ════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="sec-tag">Our People</div>
+    <h2 class="sec-title">Meet the <span>Team</span></h2>
+    <div class="sec-rule"></div>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="t-avatar">👷</div>
+        <h4>Mr. Mulleti Hareesh</h4>
+        <p>Co-Founder &amp; Director</p>
+      </div>
+      <div class="team-card">
+        <div class="t-avatar">👷</div>
+        <h4>Mr. Pusuluri Pulla Rao</h4>
+        <p>Co-Founder &amp; Director</p>
+      </div>
+      <div class="team-card">
+        <div class="t-avatar">🗺️</div>
+        <h4>Survey Lead</h4>
+        <p>Chief Land Surveyor</p>
+      </div>
+      <div class="team-card">
+        <div class="t-avatar">🚁</div>
+        <h4>Drone Unit</h4>
+        <p>UAV Pilot &amp; Photogrammetrist</p>
+      </div>
+      <div class="team-card">
+        <div class="t-avatar">⛏️</div>
+        <h4>Geo Team</h4>
+        <p>Geotechnical Specialist</p>
+      </div>
+      <div class="team-card">
+        <div class="t-avatar">📐</div>
+        <h4>Design Cell</h4>
+        <p>Structural &amp; Civil Designer</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CTA ══════════════════════════════════════════════════ -->
+  <div class="cta-band">
+    <h2>Have a Project in Mind?</h2>
+    <p>Contact our team for a free consultation and competitive quote tailored to your project.</p>
+    <a class="btn-white" href="contact.html">✉ Get in Touch</a>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/about.js"></script>
+</body>
+</html>
