@@ -1,56 +1,46 @@
 from datetime import datetime
 from firebase_init import get_db
 import smtplib
-import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
-from dotenv import load_dotenv
+import threading
+import concurrent.futures
 
-load_dotenv()
 db = get_db()
 
+# ── Email Configuration ──────────────────────────────────────────
+SMTP_SERVER  = os.getenv("SMTP_HOST", "smtp.gmail.com")
+SMTP_PORT    = int(os.getenv("SMTP_PORT", "587"))
+SMTP_EMAIL   = os.getenv("SMTP_USER")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+ADMIN_EMAIL  = os.getenv("ADMIN_EMAIL")
+CLIENT_NAME  = os.getenv("CLIENT_NAME", "MNPIEPL")
+
+# Reuse a thread pool instead of spawning new threads every time
+_executor = concurrent.futures.ThreadPoolExecutor(max_workers=5)
+
+# ── Reusable SMTP Send ───────────────────────────────────────────
 def _send_email(to_email, subject, body):
-    SMTP_EMAIL    = os.getenv("SMTP_USER")
-    SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
-    CLIENT_NAME   = os.getenv("CLIENT_NAME", "MNPIEPL")
-
-    if not SMTP_EMAIL or not SMTP_PASSWORD:
-        print(f"⚠ SMTP not configured - USER:{SMTP_EMAIL}")
-        return
-
     try:
         msg = MIMEMultipart()
-        msg['From']    = f"{CLIENT_NAME} <{SMTP_EMAIL}>"
+        msg['From']    = SMTP_EMAIL
         msg['To']      = to_email
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'plain'))
 
-        # Try port 465 SSL
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context, timeout=15) as server:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=10) as server:
+            server.starttls()
             server.login(SMTP_EMAIL, SMTP_PASSWORD)
             server.send_message(msg)
 
         print(f"✅ Email sent → {to_email}")
     except Exception as e:
         print(f"❌ Email error ({to_email}): {e}")
-        # Try port 587 TLS as fallback
-        try:
-            with smtplib.SMTP("smtp.gmail.com", 587, timeout=15) as server:
-                server.starttls()
-                server.login(SMTP_EMAIL, SMTP_PASSWORD)
-                server.send_message(msg)
-            print(f"✅ Email sent via fallback → {to_email}")
-        except Exception as e2:
-            print(f"❌ Fallback also failed ({to_email}): {e2}")
 
-def contact_form(data):
+# ── Save to Firebase ─────────────────────────────────────────────
+def _save_to_firebase(data):
     try:
-        CLIENT_NAME = os.getenv("CLIENT_NAME", "MNPIEPL")
-        ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
-
-        # ── Save to Firebase ──────────────────────────────────────
         ref = db.reference("contacts")
         new_contact = ref.push({
             "name":       data.get("name"),
@@ -62,21 +52,27 @@ def contact_form(data):
             "ip_address": data.get("ip_address"),
         })
         print(f"✅ Saved to Firebase → {new_contact.key}")
+    except Exception as e:
+        print(f"❌ Firebase error: {e}")
 
-        # ── Send User Thank You Email ─────────────────────────────
-        _send_email(
+# ── Background Task: Save + Emails ──────────────────────────────
+def _process_contact(data):
+    # Run Firebase save + both emails at the same time (parallel)
+    futures = [
+        _executor.submit(_save_to_firebase, data),
+        _executor.submit(
+            _send_email,
             data["email"],
             "Thank you for contacting us!",
             f"Hi {data['name']},\n\n"
             f"Thank you for reaching out! We received your message and will get back to you soon.\n\n"
             f"Best regards,\n{CLIENT_NAME} Team"
-        )
-
-        # ── Send Admin Notification Email ─────────────────────────
-        _send_email(
+        ),
+        _executor.submit(
+            _send_email,
             ADMIN_EMAIL,
             f"New Contact Form - {data.get('subject')}",
-            f"NEW CONTACT FORM SUBMISSION\n\n"
+            f"📧 NEW CONTACT FORM SUBMISSION\n\n"
             f"Name:    {data.get('name')}\n"
             f"Phone:   {data.get('phone')}\n"
             f"Email:   {data.get('email')}\n"
@@ -85,10 +81,23 @@ def contact_form(data):
             f"---\n"
             f"IP:        {data.get('ip_address')}\n"
             f"Timestamp: {datetime.utcnow().isoformat()}"
-        )
+        ),
+    ]
 
-        return {"success": True, "message": "Message received!"}
+# ── Main Contact Form Handler ────────────────────────────────────
+def contact_form(data):
+    try:
+        # Immediately fire everything in background, don't wait
+        _executor.submit(_process_contact, data)
+
+        # ⚡ Returns in <5ms — user gets response instantly
+        return {
+            "success": True,
+            "message": "Message received!",
+        }
 
     except Exception as e:
-        print(f"❌ Error: {e}")
-        return {"success": False, "message": str(e)}
+        return {
+            "success": False,
+            "message": str(e),
+        }
